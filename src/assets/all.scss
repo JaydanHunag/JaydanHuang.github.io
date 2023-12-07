@@ -1,5 +1,15 @@
 @import "~bootstrap/scss/functions";
-@import "./helpers/variable";
+@import "./helpers/variables";
 @import "~bootstrap/scss/mixins";
 
+@import "./helpers/header";
+//載入所有的bootstrap
 @import "~bootstrap/scss/bootstrap";
+@import "./helpers/home";
+@import "./helpers/productlist";
+@import "./helpers/ProductPagination";
+
+@font-face {
+  font-family: "Noto Sans TC";
+  src: url("/public/NotoSansTC-Regular.ttf");
+}
