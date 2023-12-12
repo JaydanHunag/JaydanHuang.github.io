@@ -8,8 +8,17 @@
 @import "./helpers/home";
 @import "./helpers/productlist";
 @import "./helpers/ProductPagination";
+@import "./helpers/userProduct";
+@import "./helpers/cart";
+@import "./helpers/progress";
 
 @font-face {
   font-family: "Noto Sans TC";
   src: url("/public/NotoSansTC-Regular.ttf");
+}
+
+@media (max-width: 768px) {
+  .none {
+    display: none;
+  }
 }

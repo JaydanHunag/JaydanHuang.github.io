@@ -1,82 +1,18 @@
 <template>
   <Loading :active="isLoading"></Loading>
   <div class="container">
-    <div class="row mt-4">
-      <div class="col-md-7">
-        <table class="table align-middle">
-          <thead>
-            <tr>
-              <th>圖片</th>
-              <th>商品名稱</th>
-              <th>價格</th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr v-for="item in products" :key="item.id">
-              <td style="width: 200px">
-                <div
-                  style="
-                    height: 100px;
-                    background-size: cover;
-                    background-position: center;
-                  "
-                  :style="{ backgroundImage: `url(${item.imageUrl})` }"
-                ></div>
-              </td>
-              <td>
-                <a href="#" class="text-dark">{{ item.title }}</a>
-              </td>
-              <td>
-                <div class="h5" v-if="!item.price">
-                  {{ item.origin_price }} 元
-                </div>
-                <del class="h6" v-if="item.price"
-                  >原價 {{ item.origin_price }} 元</del
-                >
-                <div class="h5" v-if="item.price">
-                  現在只要 {{ item.price }} 元
-                </div>
-              </td>
-              <td>
-                <div class="btn-group btn-group-sm">
-                  <button
-                    type="button"
-                    class="btn btn-outline-secondary"
-                    @click="getProduct(item.id)"
-                  >
-                    查看更多
-                  </button>
-                  <button
-                    type="button"
-                    class="btn btn-outline-danger"
-                    @click="addCart(item.id)"
-                    :disabled="this.status.loadingItem === item.id"
-                  >
-                    <div
-                      v-if="this.status.loadingItem === item.id"
-                      class="spinner-border spinner-border-sm"
-                      role="status"
-                    >
-                      <span class="visually-hidden">Loading...</span>
-                    </div>
-                    加到購物車
-                  </button>
-                </div>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+    <Progress></Progress>
+
+    <div class="row mt-6">
       <!-- 購物車列表 -->
-      <div class="col-md-5">
+      <div class="col-6">
         <div class="sticky-top">
           <table class="table align-middle">
             <thead>
               <tr>
                 <th></th>
                 <th>品名</th>
-                <th style="width: 110px">數量</th>
+                <th class="cart-input">數量</th>
                 <th>單價</th>
               </tr>
             </thead>
@@ -93,6 +29,11 @@
                     </button>
                   </td>
                   <td>
+                    <img
+                      :src="item.product.imageUrl"
+                      alt="item"
+                      class="cart-img pe-1"
+                    />
                     {{ item.product.title }}
                     <div class="text-success" v-if="item.coupon">
                       已套用優惠券
@@ -137,108 +78,97 @@
               </tr>
             </tfoot>
           </table>
-          <div class="input-group mb-3 input-group-sm">
-            <input
-              type="text"
-              class="form-control"
-              v-model="coupon_code"
-              placeholder="請輸入優惠碼"
-            />
-            <div class="input-group-append">
-              <button
-                class="btn btn-outline-secondary"
-                type="button"
-                @click="addCouponCode"
-              >
-                套用優惠碼
-              </button>
-            </div>
+          <div>
+            <button class="btn btn-outline-danger w-100 my-1" @click="delAll">
+              全部清除
+            </button>
+            <button class="btn btn-outline-dark my-1 w-100" @click="back">
+              繼續購物
+            </button>
           </div>
         </div>
       </div>
-    </div>
-    <div class="my-5 row justify-content-center">
-      <Form class="col-md-6" v-slot="{ errors }" @submit="createOrder">
-        <div class="mb-3">
-          <label for="email" class="form-label">Email</label>
-          <Field
-            id="email"
-            name="email"
-            type="email"
-            class="form-control"
-            :class="{ 'is-invalid': errors['email'] }"
-            placeholder="請輸入 Email"
-            rules="email|required"
-            v-model="form.user.email"
-          ></Field>
-          <ErrorMessage name="email" class="invalid-feedback"></ErrorMessage>
+      <div class="h-100 border-start border-4 col-6">
+        <table class="table align-middle">
+          <thead>
+            <tr>
+              <th>購物車總計</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>小計</td>
+              <td class="text-end" v-if="(cart.total = cart.final_total)">
+                NT. {{ $filters.currency(cart.total) }}
+              </td>
+              <td class="text-end" v-else>
+                NT. {{ $filters.currency(cart.final_total) }}
+              </td>
+            </tr>
+            <tr>
+              <td>運費</td>
+              <td class="text-end"><del class="text-black-50">NT. 60</del></td>
+            </tr>
+            <tr>
+              <td>總計</td>
+              <td class="text-end" v-if="(cart.total = cart.final_total)">
+                NT. {{ $filters.currency(cart.total) }}
+              </td>
+              <td class="text-end" v-else>
+                NT. {{ $filters.currency(cart.final_total) }}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="mb-5">
+          <button
+            class="btn btn-outline-danger w-100"
+            @click.prevent="toSendOrder"
+            v-show="cart.total != 0"
+          >
+            前往結賬
+          </button>
         </div>
+        <table class="table align-middle">
+          <thead>
+            <tr>
+              <th><i class="bi bi-ticket-perforated-fill pe-2"></i>折價券</th>
+            </tr>
+          </thead>
+          <tr>
+            <td>
+              <div
+                class="input-group input-group-sm mt-3 w-100"
+                style="height: 10vh"
+              >
+                <input
+                  type="text"
+                  class="form-control"
+                  v-model="coupon_code"
+                  placeholder="請輸入優惠碼"
+                  style="height: 50px"
+                />
+              </div>
+            </td>
+          </tr>
 
-        <div class="mb-3">
-          <label for="name" class="form-label">收件人姓名</label>
-          <Field
-            id="name"
-            name="姓名"
-            type="text"
-            class="form-control"
-            :class="{ 'is-invalid': errors['姓名'] }"
-            placeholder="請輸入姓名"
-            rules="required"
-            v-model="form.user.name"
-          ></Field>
-          <ErrorMessage name="姓名" class="invalid-feedback"></ErrorMessage>
-        </div>
-
-        <div class="mb-3">
-          <label for="tel" class="form-label">收件人電話</label>
-          <Field
-            id="tel"
-            name="電話"
-            type="tel"
-            class="form-control"
-            :class="{ 'is-invalid': errors['電話'] }"
-            placeholder="請輸入電話"
-            rules="required"
-            v-model="form.user.tel"
-          ></Field>
-          <ErrorMessage name="電話" class="invalid-feedback"></ErrorMessage>
-        </div>
-
-        <div class="mb-3">
-          <label for="address" class="form-label">收件人地址</label>
-          <Field
-            id="address"
-            name="地址"
-            type="text"
-            class="form-control"
-            :class="{ 'is-invalid': errors['地址'] }"
-            placeholder="請輸入地址"
-            rules="required"
-            v-model="form.user.address"
-          ></Field>
-          <ErrorMessage name="地址" class="invalid-feedback"></ErrorMessage>
-        </div>
-
-        <div class="mb-3">
-          <label for="message" class="form-label">留言</label>
-          <textarea
-            name=""
-            id="message"
-            class="form-control"
-            cols="30"
-            rows="10"
-            v-model="form.message"
-          ></textarea>
-        </div>
-        <div class="text-end">
-          <button class="btn btn-danger">送出訂單</button>
-        </div>
-      </Form>
+          <div class="input-group-append">
+            <button
+              class="btn btn-outline-secondary w-100"
+              type="button"
+              @click="addCouponCode"
+            >
+              套用優惠碼
+            </button>
+          </div>
+        </table>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
+import Progress from "../components/Progress.vue";
 export default {
   data() {
     return {
@@ -249,28 +179,13 @@ export default {
       },
       cart: {},
       coupon_code: "",
-      form: {
-        user: {
-          name: "",
-          email: "",
-          tel: "",
-          address: "",
-        },
-        message: "",
-      },
     };
   },
   inject: ["httpMessageState"],
+  components: {
+    Progress,
+  },
   methods: {
-    getProducts() {
-      const url = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/products/all`;
-      this.isLoading = true;
-      this.axios.get(url).then((response) => {
-        this.products = response.data.products;
-        console.log("products:", response);
-        this.isLoading = false;
-      });
-    },
     getProduct(id) {
       this.$router.push(`/user/product/${id}`);
     },
@@ -331,20 +246,25 @@ export default {
         this.getCart();
       });
     },
-    createOrder() {
-      const url = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/order`;
-      const order = this.form;
+
+    delAll() {
+      const url = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/carts`;
       this.isLoading = true;
-      this.axios.post(url, { data: order }).then((response) => {
+      this.axios.delete(url).then((res) => {
         this.isLoading = false;
-        this.httpMessageState(response, "提交表單");
-        console.log(response);
+        this.httpMessageState(res, "購物車清除");
         this.getCart();
       });
     },
+    back() {
+      this.$router.push("/user/productlist");
+      scrollTo(0, 0);
+    },
+    toSendOrder() {
+      this.$router.push("/user/sendorder");
+    },
   },
   created() {
-    this.getProducts();
     this.getCart();
   },
 };

@@ -5,10 +5,9 @@
       <ToastMessages></ToastMessages>
       <router-view />
     </div>
-    <div class="mt-5 pt-6">
-      <Footer></Footer>
-    </div>
+    <div class="mt-5 pt-6"></div>
   </body>
+  <Footer></Footer>
 </template>
 
 <style scoped>

@@ -126,7 +126,7 @@
           <div class="mt-6 row">
             <div class="col-md-4 px-0 pb-3">
               <div class="custom-img-container">
-                <router-link to="{name:'about'}"
+                <router-link to="/user/productlist"
                   ><img src="../assets/eoo.jpg" alt="" class="custom-img" />
                   <div class="custom-img-text">最新單品</div></router-link
                 >
@@ -134,7 +134,7 @@
             </div>
             <div class="col-md-4 px-0">
               <div class="custom-img-container">
-                <router-link to="{name:'about'}"
+                <router-link to="/user/productlist"
                   ><img src="../assets/eoo2.jpg" alt="" class="custom-img" />
                   <div class="custom-img-text">熱門款式</div></router-link
                 >
@@ -142,7 +142,7 @@
             </div>
             <div class="col-md-4 px-0">
               <div class="custom-img-container">
-                <router-link to="{name:'about'}"
+                <router-link to="/user/productlist"
                   ><img src="../assets/eoo3.jpg" alt="" class="custom-img" />
                   <div class="custom-img-text">促銷商品</div>
                 </router-link>

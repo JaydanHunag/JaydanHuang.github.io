@@ -10,7 +10,7 @@
     <div class="container">
       <div class="row">
         <div class="col-2">
-          <CateList></CateList>
+          <CateList class="none"></CateList>
         </div>
         <div class="col-10">
           <Card></Card>

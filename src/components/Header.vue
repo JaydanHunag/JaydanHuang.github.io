@@ -46,18 +46,18 @@
             </ul>
             <ul class="navbar-nav ms-auto">
               <li class="nav-item">
-                <router-link to="/productlist" class="nav-link"
+                <router-link to="/dashboard" class="nav-link"
                   >ADMIN</router-link
                 >
               </li>
 
               <li class="nav-item">
-                <router-link to="/productlist" class="nav-link"
+                <router-link to="/user/favorite" class="nav-link"
                   ><i class="bi bi-heart-fill"></i
                 ></router-link>
               </li>
               <li class="nav-item">
-                <router-link to="/productlist" class="nav-link"
+                <router-link to="/user/cart" class="nav-link"
                   ><i class="bi bi-bag-fill"></i
                 ></router-link>
               </li>
