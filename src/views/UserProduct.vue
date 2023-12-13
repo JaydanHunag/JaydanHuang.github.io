@@ -120,7 +120,7 @@
             <button
               type="button"
               class="favo-div"
-              @click="addToCart(product.id)"
+              @click="addFavo(id)"
               :disabled="this.status.loadingItem === product.id"
             >
               <div
@@ -250,6 +250,12 @@ export default {
       } else {
         this.qty = 1;
       }
+    },
+    addFavo(id) {
+      let newId = [id];
+      const data = localStorage.getItem("favorites");
+      const favo = data ? JSON.parse(data).concat(newId) : newId;
+      localStorage.setItem("favorites", JSON.stringify(favo));
     },
   },
   watch: {

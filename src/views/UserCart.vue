@@ -93,6 +93,8 @@
           <thead>
             <tr>
               <th>購物車總計</th>
+              <td></td>
+              <td></td>
             </tr>
           </thead>
           <tbody>

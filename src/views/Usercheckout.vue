@@ -1,12 +1,22 @@
 <template>
   <Loading :active="isLoading"></Loading>
-  <div class="my-5 row justify-content-center">
-    <form class="col-md-6" @submit.prevent="payOrder">
+  <Progress :order-id="orderId"></Progress>
+  <div class="container">
+    <div class="c-img-div my-4">
+      <img src="../assets/check.png" alt="check" />
+    </div>
+    <div class="c-h5-div my-4">
+      <h5 class="text-center">
+        恭喜您，已成功建立訂單，您的訂單編號為：{{ orderId }}
+      </h5>
+    </div>
+
+    <form class="row mt-5" @submit.prevent="payOrder">
       <table class="table align-middle">
         <thead>
           <th>品名</th>
           <th>數量</th>
-          <th>單價</th>
+          <th class="text-end">單價</th>
         </thead>
         <tbody>
           <tr v-for="item in order.products" :key="item.id">
@@ -58,6 +68,7 @@
 </template>
 
 <script>
+import Progress from "../components/Progress.vue";
 export default {
   data() {
     return {
@@ -67,6 +78,9 @@ export default {
       orderId: "",
       isLoading: false,
     };
+  },
+  components: {
+    Progress,
   },
   methods: {
     getOrder() {

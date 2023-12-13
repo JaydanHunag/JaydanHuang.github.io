@@ -59,12 +59,12 @@ const routes = [
         component: () => import("@/views/SendOrder"),
       },
       {
-        path: "checkout/",
-        component: () => import("@/views/Checkout"),
-      },
-      {
         path: "checkout/:orderId",
         component: () => import("@/views/Usercheckout"),
+      },
+      {
+        path: "favorite",
+        component: () => import("@/views/Favorite.vue"),
       },
     ],
   },

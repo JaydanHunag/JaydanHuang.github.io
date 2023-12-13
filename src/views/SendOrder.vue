@@ -159,6 +159,7 @@
 
 <script>
 import Progress from "@/components/Progress.vue";
+
 export default {
   data() {
     return {
@@ -173,6 +174,7 @@ export default {
       },
       isLoading: false,
       cart: [],
+      orderId: "",
     };
   },
   components: {
@@ -198,7 +200,12 @@ export default {
         this.isLoading = false;
         this.httpMessageState(response, "提交表單");
         console.log(response);
+
+        this.orderId = response.data.orderId;
+        console.log(this.orderId);
+
         this.getCart();
+        this.$router.push(`/user/checkout/${this.orderId}`);
       });
     },
     back() {
