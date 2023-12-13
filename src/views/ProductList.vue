@@ -12,7 +12,7 @@
         <div class="col-2">
           <CateList class="none"></CateList>
         </div>
-        <div class="col-10">
+        <div class="col-10 mb-3">
           <Card></Card>
         </div>
       </div>
