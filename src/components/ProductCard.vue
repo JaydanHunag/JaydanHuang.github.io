@@ -1,4 +1,5 @@
 <template>
+  <Loading :active="isLoading"></Loading>
   <div>
     <div>
       <div class="row">
@@ -140,6 +141,7 @@ export default {
       minData: 0,
       maxData: 10,
       newData: [],
+      isLoading: false,
     };
   },
   inject: ["httpMessageState"],
@@ -149,6 +151,7 @@ export default {
   },
   methods: {
     getProduct() {
+      this.isLoading = true;
       this.cate = "";
       const category = this.$route.query.category || null;
       console.log(category);
@@ -156,6 +159,7 @@ export default {
         const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/products/all`;
 
         this.axios.get(api).then((res) => {
+          this.isLoading = false;
           console.log(res);
           this.pagination = res.data.pagination;
           this.dataLength = res.data.products.length;
@@ -167,6 +171,7 @@ export default {
         const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/products/all`;
         this.cate = category;
         this.axios.get(api).then((res) => {
+          this.isLoading = false;
           console.log(res);
           this.dataLength = res.data.products.length;
           this.filterProduct = res.data.products.filter((product) => {
@@ -214,9 +219,11 @@ export default {
       this.getIndex(this.current_page);
     },
     toProduct(id) {
+      this.isLoading = true;
       const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/product/${id}`;
 
       this.axios.get(api).then((res) => {
+        this.isLoading = false;
         this.$router.push(`/user/product/${res.data.product.id}`);
       });
     },
