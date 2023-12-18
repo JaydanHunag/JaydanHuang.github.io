@@ -21,13 +21,16 @@
         <CategoryList class="none"></CategoryList>
       </div>
 
-      <div class="col-4">
+      <div class="col-4" id="info-img">
         <img :src="product.imageUrl" alt="" class="img-fluid mb-3" />
       </div>
       <div class="col-6">
         <div class="row justify-content-center">
-          <article class="col-8">
-            <h3>{{ product.title }}</h3>
+          <article class="col-8" id="product-article">
+            <div>
+              <h3>{{ product.title }}</h3>
+            </div>
+
             <div class="d-flex justify-content-start mx-0 mt-3 flex-column">
               <div style="border-left: 3px solid black" class="ps-3 my-2">
                 至12/31 00:00 截止 <br />全店，下單輸入優惠碼 OPEN2024 即可享 7
@@ -35,22 +38,25 @@
               </div>
             </div>
           </article>
-          <div class="col-4"></div>
+          <div class="col-4" id=""></div>
         </div>
 
         <hr />
-        <div class="d-flex flex-column">
+        <div class="d-flex flex-column" id="product-info">
           <!-- <h4 class="py-1">商品說明</h4> -->
 
           <h6 class="py-1">產地：韓國</h6>
           <div class="py-1">{{ product.content }}</div>
           <div class="py-1">設計：{{ product.description }}</div>
-          <div class="py-1" style="font-size: 1rem">
+          <div class="py-1 info-point">
             注意事項：此商品為代購服務，商品無退換貨。付款完成後約為7~12個工作天出貨，如遇缺貨會延後3~5個工作天。
           </div>
         </div>
         <hr />
-        <div class="d-flex justify-content-start align-items-center">
+        <div
+          class="d-flex justify-content-start align-items-center"
+          id="price-div"
+        >
           <div class="h5" v-if="!product.price">
             {{ product.origin_price }}
           </div>
@@ -66,13 +72,13 @@
         <hr />
         <div class="row mt-4">
           <div class="col-5">
-            <div class="row">
+            <div class="row" id="buy-div">
               <div
                 class="h5 col-4 align-items-center d-flex px-0 justify-content-center"
               >
                 數量：
               </div>
-              <div class="col px-0 d-flex flex-wrap">
+              <div class="col px-0 d-flex flex-wrap media-button">
                 <button
                   type="button"
                   @click.prevent="subone"
@@ -99,7 +105,10 @@
             </div>
           </div>
 
-          <div class="col-3 d-flex justify-content-center px-0 ps-4">
+          <div
+            class="col-3 d-flex justify-content-center px-0 ps-4"
+            id="product-info-button1"
+          >
             <button
               type="button"
               class="cart-div"
@@ -116,7 +125,10 @@
               <i class="bi bi-bag-fill"></i> 加到購物車
             </button>
           </div>
-          <div class="col-3 d-flex justify-content-center px-0 ps-4">
+          <div
+            class="col-3 d-flex justify-content-center px-0 ps-4"
+            id="product-info-button2"
+          >
             <button
               type="button"
               class="favo-div"
@@ -137,12 +149,14 @@
         </div>
       </div>
       <section>
-        <div class="mt-6 h1 text-center mb-6 border-bottom border-5 pb-4">
+        <div
+          class="media-product-advice mt-6 h1 text-center mb-6 border-bottom border-5 pb-4"
+        >
           YOU MAY ALSO LIKE
         </div>
         <div class="row d-flex justify-content-around">
           <div v-for="product in showProduct" :key="product.id" class="col">
-            <div class="w-100 h-100 like-set">
+            <div class="w-100 like-set">
               <img
                 :src="product.imageUrl"
                 alt="image"

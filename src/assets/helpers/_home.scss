@@ -72,6 +72,7 @@
   color: white;
   flex-direction: column;
   h3 {
+    position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -102,4 +103,38 @@
   padding-bottom: 1rem;
   border-bottom: 5px solid black;
   padding-top: 1.5rem;
+}
+
+@media (max-width: 1266px) {
+  .div-saying {
+    height: 40vh;
+    h3 {
+      background: none;
+      color: white;
+    }
+    p {
+      font-size: 1rem;
+    }
+  }
+}
+
+@media (max-width: 500px) {
+  .div-saying {
+    width: 80vw;
+  }
+  .carousel-inner {
+    height: auto;
+
+    .carousel-item {
+      object-fit: cover;
+    }
+  }
+  .custom-img {
+    height: 400px;
+    margin: 0.5rem;
+  }
+  .div-500 {
+    padding-top: 1rem;
+    font-size: 14px;
+  }
 }

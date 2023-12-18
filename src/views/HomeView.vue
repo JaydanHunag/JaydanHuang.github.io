@@ -159,10 +159,10 @@
     <div class="d-flex div-info justify-content-center align-items-center">
       <div>
         <h1>KA·SHION</h1>
-        <p>
+        <div class="div-500">
           「你的穿著就是你如何向世界展示自己，尤在今日，當人們的交流短暫快速，時尚就是立即的語言。」－普拉達Miuccia
           Prada
-        </p>
+        </div>
       </div>
     </div>
     <div class="row" style="background-color: white">

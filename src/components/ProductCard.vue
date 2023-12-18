@@ -18,10 +18,9 @@
           </ol>
         </nav>
       </div>
-      <div class="row">
+      <div class="row" id="productlist-div">
         <div
           id="productlist"
-          style="width: 250px"
           v-for="item in newData"
           :key="item.id"
           class="mt-2 mx-2"

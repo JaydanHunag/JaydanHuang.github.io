@@ -9,7 +9,7 @@
     <!-- 列表 -->
     <div class="container">
       <div class="row">
-        <div class="col-2">
+        <div class="col-2" v-if="screenWidth >= 768">
           <CateList class="none"></CateList>
         </div>
         <div class="col-10 mb-3">
@@ -34,6 +34,10 @@ import CateList from "../components/CategoryList.vue";
 export default {
   data() {
     return {
+      screenWidth:
+        window.innerWidth ||
+        document.documentElement.clientWidth ||
+        document.body.clientWidth,
       products: [],
       currentPage: 1,
       pagination: {},
@@ -46,7 +50,19 @@ export default {
     Card,
     CateList,
   },
-  methods: {},
+  methods: {
+    updateScreenWidth() {
+      this.screenWidth =
+        window.innerWidth ||
+        document.documentElement.clientWidth ||
+        document.body.clientWidth;
+    },
+  },
+  mounted() {
+    // 监听窗口大小变化，更新screenWidth
+    window.addEventListener("resize", this.updateScreenWidth);
+    this.updateScreenWidth(); // 初始化时执行一次
+  },
   // beforeRouteUpdate(to, from, next) {
   //   location.reload();
   // },

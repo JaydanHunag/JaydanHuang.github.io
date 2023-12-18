@@ -55,6 +55,7 @@
 
 #productlist {
   overflow: hidden;
+  width: 250px;
 }
 
 .productlist-img {
@@ -64,5 +65,33 @@
   margin-top: 1rem;
   &:hover {
     filter: brightness(0.7);
+  }
+}
+
+@media (max-width: 500px) {
+  #productlist-div {
+    display: flex;
+    justify-content: center;
+  }
+  #productlist {
+    width: 150px;
+    height: auto;
+    h6 {
+      font-size: 0.75rem;
+    }
+    h5 {
+      font-size: 0.75rem;
+    }
+    button {
+      font-size: 0.7rem;
+    }
+  }
+  .productlist-img {
+    height: 150px;
+  }
+  .product-left {
+    position: fixed;
+    width: 0%;
+    height: 0%;
   }
 }
