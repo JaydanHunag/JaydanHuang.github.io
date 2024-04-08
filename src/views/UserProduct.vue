@@ -42,7 +42,7 @@
         </div>
 
         <hr />
-        <div class="d-flex flex-column" id="product-info">
+        <div class="d-flex flex-column flex-wrap" id="product-info">
           <!-- <h4 class="py-1">商品說明</h4> -->
 
           <h6 class="py-1">產地：韓國</h6>
@@ -197,7 +197,7 @@ export default {
       qty: 1,
     };
   },
-  inject: ["httpMessageState"],
+  inject: ["httpMessageState", "emitter"],
   components: {
     CategoryList,
   },
@@ -270,6 +270,10 @@ export default {
       const data = localStorage.getItem("favorites");
       const favo = data ? JSON.parse(data).concat(newId) : newId;
       localStorage.setItem("favorites", JSON.stringify(favo));
+      this.emitter.emit("push-message", {
+        style: "success",
+        title: `更新成功`,
+      });
     },
   },
   watch: {

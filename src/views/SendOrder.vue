@@ -3,7 +3,7 @@
   <div class="container">
     <Progress></Progress>
     <div class="row justify-content-center d-flex mt-4">
-      <div class="col-6">
+      <div class="col-sm-6 col-12">
         <div class="w-100">
           <h4>帳單資訊</h4>
           <hr />
@@ -85,7 +85,7 @@
           </Form>
         </div>
       </div>
-      <div class="col-6">
+      <div class="col-sm-6 col-12">
         <h4>您的訂單</h4>
         <hr />
 

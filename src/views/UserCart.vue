@@ -4,9 +4,9 @@
     <div class="container">
       <Progress></Progress>
 
-      <div class="row mt-6">
+      <div class="row mt-6 d-flex">
         <!-- 購物車列表 -->
-        <div class="col-6">
+        <div class="col-sm-6 col-12">
           <div class="sticky-top">
             <table class="table align-middle">
               <thead>
@@ -89,7 +89,7 @@
             </div>
           </div>
         </div>
-        <div class="h-100 border-start border-4 col-6">
+        <div class="border-start border-4 col-sm-6 col-12">
           <table class="table align-middle">
             <thead>
               <tr>
@@ -142,10 +142,7 @@
             </thead>
             <tr>
               <td>
-                <div
-                  class="input-group input-group-sm mt-3 w-100"
-                  style="height: 10vh"
-                >
+                <div class="input-group input-group-sm my-3 w-100">
                   <input
                     type="text"
                     class="form-control"

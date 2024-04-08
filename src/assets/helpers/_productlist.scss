@@ -68,13 +68,14 @@
   }
 }
 
-@media (max-width: 500px) {
+@media (max-width: 800px) {
   #productlist-div {
     display: flex;
     justify-content: center;
+    transform: translate(10%, 0);
   }
   #productlist {
-    width: 150px;
+    width: 45%;
     height: auto;
     h6 {
       font-size: 0.75rem;
@@ -93,5 +94,15 @@
     position: fixed;
     width: 0%;
     height: 0%;
+  }
+}
+
+@media (max-width: 408px) {
+  #productlist {
+    width: 40%;
+
+    button {
+      transform: scale(0.7);
+    }
   }
 }
